@@ -23,6 +23,8 @@ namespace biobokare
         static void Main()
         {
             bool isStudent = false;
+            int selectedMovie = -1;
+            int tickets = 0;
             while (true)
             {
                 Console.WriteLine("Välkommen till SKRÄCKBION");
@@ -41,8 +43,7 @@ namespace biobokare
                 string[] movies = { "Introduktion till C#", "Lär dig använda arrayer", "Metodöverlagring" };
                 string[] showTimes = { "18:00", "20:00", "22:00" };
                 double[] basePrices = { 100, 120, 150 };
-                int selectedMovie = -1;
-                int tickets = 0;
+              
               
 
                 switch (choice)
@@ -53,7 +54,9 @@ namespace biobokare
                         {
                             Console.WriteLine("-------------------");
                             Console.WriteLine($"{i + 1}) {movies[i]} - {showTimes[i]}");
-                            Console.WriteLine($"Pris: {basePrices[i]} {currency}");
+                            Console.WriteLine($"Pris ex moms: {basePrices[i]} {currency}");
+                            Console.WriteLine("");
+                            Console.WriteLine("");
                         }
                         break;
 
@@ -93,14 +96,25 @@ namespace biobokare
                             Console.WriteLine("Ingen film vald ännu.");
                             break;
                         }
-                        Console.WriteLine("Skriver ut kvitto");
-                                Console.WriteLine("");
-                           double totalPrice;
+                        double totalPrice;
                         if (isStudent)
                         {
-
+                            totalPrice = CalculatePrice(tickets, basePrices[selectedMovie], student_discount);
                         }
-                            break;
+                        else
+                        {
+                            totalPrice = CalculatePrice(tickets, basePrices[selectedMovie]);
+                        }
+                        totalPrice *= (1 + tax_rate);
+                        Console.WriteLine("-------------------");
+                        Console.WriteLine($"Film: {movies[selectedMovie]}"); Console.WriteLine();
+                        Console.WriteLine($"Tid: {showTimes[selectedMovie]}");
+                        Console.WriteLine($"Antal biljetter: {tickets}");
+                        Console.WriteLine($"Studentrabatt: {(isStudent ? "Ja" : "Nej")}");
+                        Console.WriteLine($"Totalt pris (inkl. {tax_rate * 100}% moms): {totalPrice:F2} {currency}");
+                        Console.WriteLine("-------------------");
+
+                        break;
                         
 
                         
