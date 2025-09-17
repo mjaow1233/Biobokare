@@ -182,9 +182,9 @@ namespace biobokare
             }
         }
     }
-    public class Spinner : IDisposable //stulen spinnerkod
+    public class Spinner : IDisposable
     {
-        private const string Sequence = @"/-\|";
+        private const string Sequence = @"/-\";
         private int counter = 0;
         private readonly int left;
         private readonly int top;
