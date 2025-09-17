@@ -28,7 +28,7 @@ namespace biobokare
         {
             while (true)
             {
-                Console.WriteLine("Välkommen till SKRÄCKbion);
+                Console.WriteLine("Välkommen till SKRÄCKBION);
                 Console.WriteLine("---------------------------");
                 Console.WriteLine("Gör ett val");
                 Console.WriteLine("1) Lista filmer");
