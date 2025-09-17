@@ -55,9 +55,12 @@ namespace biobokare
                             Console.WriteLine("-------------------");
                             Console.WriteLine($"{i + 1}) {movies[i]} - {showTimes[i]}");
                             Console.WriteLine($"Pris ex moms: {basePrices[i]} {currency}");
-                            Console.WriteLine("");
-                            Console.WriteLine("");
+
+
+                         
                         }
+                        Console.WriteLine(""); //mellanrum för när loopen laddas om
+                        Console.WriteLine("");
                         break;
 
                     case 2:
@@ -81,12 +84,16 @@ namespace biobokare
                             break;
                         }
                         Console.WriteLine($"Antal biljetter: {tickets}");
+                        Console.WriteLine(""); //mellanrum för när loopen laddas om
+                        Console.WriteLine("");
                         break;
 
                     case 3:
                         Console.WriteLine("Är du student? (ja/nej):");
                         string studentInput = Console.ReadLine();
                         isStudent = studentInput.Equals("ja", StringComparison.OrdinalIgnoreCase);
+                        Console.WriteLine(""); //mellanrum för.. ja du vet vad.
+                        Console.WriteLine("");
 
                         break;
 
@@ -113,8 +120,8 @@ namespace biobokare
                         Console.WriteLine($"Studentrabatt: {(isStudent ? "Ja" : "Nej")}");
                         Console.WriteLine($"Totalt pris (inkl. {tax_rate * 100}% moms): {totalPrice:F2} {currency}");
                         Console.WriteLine("-------------------");
-
-                        break;
+                        return;
+                        
                         
 
                         
