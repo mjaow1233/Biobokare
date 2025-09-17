@@ -29,7 +29,7 @@ namespace biobokare
                 Console.WriteLine("---------------------------");
                 Console.WriteLine("Gör ett val");
                 Console.WriteLine("1) Lista filmer & pris");
-                Console.WriteLine("2) Välj film & tid, ange biljetter");
+                Console.WriteLine("2) Välj film och ange antal biljetter");
                 Console.WriteLine("3) Lägg på/ta bort studentrabatt");
                 Console.WriteLine("4) Skriv ut kvitto");
                 Console.WriteLine("5) Avsluta");
@@ -41,7 +41,9 @@ namespace biobokare
                 string[] movies = { "Introduktion till C#", "Lär dig använda arrayer", "Metodöverlagring" };
                 string[] showTimes = { "18:00", "20:00", "22:00" };
                 double[] basePrices = { 100, 120, 150 };
-                
+                int selectedMovie = -1;
+                int tickets = 0;
+              
 
                 switch (choice)
                 {
@@ -50,31 +52,62 @@ namespace biobokare
                         for (int i = 0; i < movies.Length; i++)
                         {
                             Console.WriteLine("-------------------");
-                            Console.WriteLine($"{movies[i]} - {showTimes[i]}");
+                            Console.WriteLine($"{i + 1}) {movies[i]} - {showTimes[i]}");
                             Console.WriteLine($"Pris: {basePrices[i]} {currency}");
                         }
                         break;
-                        
+
                     case 2:
                         Console.WriteLine("Ange filmnummer (1-3):");
                         string filmInput = Console.ReadLine();
                         int filmNumber;
-                        if (!int.TryParse(filmInput, out filmNumber) || filmNumber <1 || filmNumber > 3)
-                            {
-                                Console.WriteLine("Ogiltigt filmnummer.");
-                                break;
+                        if (!int.TryParse(filmInput, out filmNumber) || filmNumber < 1 || filmNumber > 3)
+                        {
+                            Console.WriteLine("Ogiltigt filmnummer.");
+                            break;
                         }
+                        selectedMovie = filmNumber - 1;
+                        Console.WriteLine($"Du valde: {movies[selectedMovie]} kl {showTimes[selectedMovie]}");
+
+                        Console.WriteLine("Ange antal biljetter:");
+                        string ticketsInput = Console.ReadLine();
+                        if (!int.TryParse(ticketsInput, out tickets) || tickets <= 0)
+                        {
+                            Console.WriteLine("Ogiltigt antal biljetter.");
+                            tickets = 0;
+                            break;
+                        }
+                        Console.WriteLine($"Antal biljetter: {tickets}");
                         break;
+
                     case 3:
                         Console.WriteLine("Är du student? (ja/nej):");
                         string studentInput = Console.ReadLine();
                         isStudent = studentInput.Equals("ja", StringComparison.OrdinalIgnoreCase);
+
                         break;
 
-                   
+                    case 4:
+                        if (selectedMovie == -1 || tickets == 0)
+                        {
+                            Console.WriteLine("Ingen film vald ännu.");
+                            break;
+                        }
+                        Console.WriteLine("Skriver ut kvitto");
+                                Console.WriteLine("");
+                           double totalPrice;
+                        if (isStudent)
+                        {
+
+                        }
+                            break;
+                        
+
+                        
+
                 }
 
-                Console.WriteLine();
+               
             }
 
         }
