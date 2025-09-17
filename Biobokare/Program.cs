@@ -1,27 +1,23 @@
 ﻿using System;
 
 namespace biobokare
+
 {
+
     internal class Program
     {
-        static int Addera(int a, int b)
+        const double tax_rate = 0.06;          // 6% moms
+        const double student_discount = 0.15;  // 15% rabatt
+        const string currency = "SEK";
+
+        static double CalculatePrice(int tickets, double basePrice)
         {
-            return a + b;
+            return tickets * basePrice;
         }
 
-        static int Subtrahera(int a, int b)
+        static double CalculatePrice(int tickets, double basePrice, double discountPercent)
         {
-            return a - b;
-        }
-
-        static int Multiplicera(int a, int b)
-        {
-            return a * b;
-        }
-
-        static double Dividera(int a, int b)
-        {
-            return (double)a / b;
+            return tickets * basePrice * discountPercent;
         }
 
         static void Main()
