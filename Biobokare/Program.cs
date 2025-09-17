@@ -29,31 +29,47 @@ namespace biobokare
             Console.WriteLine($"Totalt pris (inkl. {tax_rate * 100}% moms): {total:F2} {currency}");
             Console.WriteLine("-------------------");
         }
+        static bool spinnerShown = false; //en gång räcker
+
         static void ShowMenu()
         {
-            Console.Clear();
+            
             Console.WriteLine("---------------------------");
 
-
-            using (var leftSpinner = new Spinner(left: 0, top: Console.CursorTop, delay: 150))
-            using (var rightSpinner = new Spinner(left: 30, top: Console.CursorTop, delay: 150))
+            if (!spinnerShown) 
             {
-                // Flytta ner en rad först för titeln
-                int titleRow = Console.CursorTop + 1;
+                Console.WriteLine();
+                int spinnerRow = Console.CursorTop;
 
-                leftSpinner.Start();
-                rightSpinner.Start();
+                using (var leftSpinner = new Spinner(left: 0, top: spinnerRow, delay: 150))
+                using (var rightSpinner = new Spinner(left: 30, top: spinnerRow, delay: 150))
+                {
+                    leftSpinner.Start();
+                    rightSpinner.Start();
 
+                    int titleRow = spinnerRow + 0;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.SetCursorPosition(10, titleRow);
+                    Console.Write("SKRÄCKBION");
+                    Console.ResetColor();
+
+                    Thread.Sleep(1200);
+
+                    leftSpinner.Stop();
+                    rightSpinner.Stop();
+
+                    Console.SetCursorPosition(0, titleRow + 2);
+                }
+
+                spinnerShown = true;
+            }
+            else
+            {
+                // Visa bara titeln utan spinner
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(10, titleRow);
-                Console.Write("SKRÄCKBION");
+                Console.WriteLine("          SKRÄCKBION");
                 Console.ResetColor();
-
-                Thread.Sleep(1200);
-
-                leftSpinner.Stop();
-                rightSpinner.Stop();
-                Console.SetCursorPosition(0, titleRow + 1); // flytta markören under texten
             }
 
             Console.WriteLine();
@@ -166,7 +182,7 @@ namespace biobokare
             }
         }
     }
-    public class Spinner : IDisposable
+    public class Spinner : IDisposable //stulen spinnerkod
     {
         private const string Sequence = @"/-\|";
         private int counter = 0;
