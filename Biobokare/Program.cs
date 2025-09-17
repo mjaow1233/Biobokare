@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace biobokare
 {
@@ -28,7 +29,42 @@ namespace biobokare
             Console.WriteLine($"Totalt pris (inkl. {tax_rate * 100}% moms): {total:F2} {currency}");
             Console.WriteLine("-------------------");
         }
+        static void ShowMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("---------------------------");
 
+
+            using (var leftSpinner = new Spinner(left: 0, top: Console.CursorTop, delay: 150))
+            using (var rightSpinner = new Spinner(left: 30, top: Console.CursorTop, delay: 150))
+            {
+                // Flytta ner en rad först för titeln
+                int titleRow = Console.CursorTop + 1;
+
+                leftSpinner.Start();
+                rightSpinner.Start();
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(10, titleRow);
+                Console.Write("SKRÄCKBION");
+                Console.ResetColor();
+
+                Thread.Sleep(1200);
+
+                leftSpinner.Stop();
+                rightSpinner.Stop();
+                Console.SetCursorPosition(0, titleRow + 1); // flytta markören under texten
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("---------------------------");
+            Console.WriteLine("Gör ett val");
+            Console.WriteLine("1) Lista filmer & pris");
+            Console.WriteLine("2) Välj film och ange antal biljetter");
+            Console.WriteLine("3) Lägg på/ta bort studentrabatt");
+            Console.WriteLine("4) Skriv ut kvitto");
+            Console.WriteLine("5) Avsluta");
+        }
         static void Main()
         {
             bool isStudent = false;
@@ -41,14 +77,7 @@ namespace biobokare
 
             while (true)
             {
-                Console.WriteLine("Välkommen till SKRÄCKBION");
-                Console.WriteLine("---------------------------");
-                Console.WriteLine("Gör ett val:");
-                Console.WriteLine("1) Lista filmer & pris");
-                Console.WriteLine("2) Välj film och ange antal biljetter");
-                Console.WriteLine("3) Lägg på/ta bort studentrabatt");
-                Console.WriteLine("4) Skriv ut kvitto");
-                Console.WriteLine("5) Avsluta");
+                ShowMenu();
 
                 string input = Console.ReadLine();
                 if (!int.TryParse(input, out int choice)) continue;
@@ -133,8 +162,66 @@ namespace biobokare
                         break;
                 }
 
-                Console.WriteLine();
+               
             }
+        }
+    }
+    public class Spinner : IDisposable
+    {
+        private const string Sequence = @"/-\|";
+        private int counter = 0;
+        private readonly int left;
+        private readonly int top;
+        private readonly int delay;
+        private bool active;
+        private readonly Thread thread;
+
+        public Spinner(int left, int top, int delay = 100)
+        {
+            this.left = left;
+            this.top = top;
+            this.delay = delay;
+            thread = new Thread(Spin);
+        }
+
+        public void Start()
+        {
+            active = true;
+            if (!thread.IsAlive)
+                thread.Start();
+        }
+
+        public void Stop()
+        {
+            active = false;
+            Draw(' ');
+        }
+
+        private void Spin()
+        {
+            while (active)
+            {
+                Turn();
+                Thread.Sleep(delay);
+            }
+        }
+
+        private void Draw(char c)
+        {
+            Console.SetCursorPosition(left, top);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(c);
+            Console.ResetColor();
+        }
+
+        private void Turn()
+        {
+            Draw(Sequence[++counter % Sequence.Length]);
+        }
+
+        public void Dispose()
+        {
+            Stop();
         }
     }
 }
