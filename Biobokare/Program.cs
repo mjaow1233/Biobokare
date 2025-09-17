@@ -17,11 +17,12 @@ namespace biobokare
 
         static double CalculatePrice(int tickets, double basePrice, double discountPercent)
         {
-            return tickets * basePrice * discountPercent;
+            return tickets * basePrice * (1 - discountPercent);
         }
 
         static void Main()
         {
+            bool isStudent = false;
             while (true)
             {
                 Console.WriteLine("Välkommen till SKRÄCKBION");
@@ -37,39 +38,40 @@ namespace biobokare
                 if (!int.TryParse(input, out int choice)) continue;
                 if (choice == 5) { Console.WriteLine("Hejdå"); break; }
 
+                string[] movies = { "Introduktion till C#", "Lär dig använda arrayer", "Metodöverlagring" };
+                string[] showTimes = { "18:00", "20:00", "22:00" };
+                double[] basePrices = { 100, 120, 150 };
+                
+
                 switch (choice)
                 {
                     case 1:
-                        string[] movies = { "1) Introduktion till C# - 18:00", "2)Lär dig använda arrayer - 20:00", "3) Metodöverlagring - 22:00" };
                         Console.WriteLine("Tillgängliga filmer:");
-                        foreach (string movie in movies)
+                        for (int i = 0; i < movies.Length; i++)
                         {
                             Console.WriteLine("-------------------");
-                            Console.WriteLine("Priset för en biljett är: 100 kronor");
-                            Console.WriteLine("här är filmerna som går idag:");
-                            Console.WriteLine(movie);
+                            Console.WriteLine($"{movies[i]} - {showTimes[i]}");
+                            Console.WriteLine($"Pris: {basePrices[i]} {currency}");
                         }
                         break;
+                        
                     case 2:
                         Console.WriteLine("Ange filmnummer (1-3):");
                         string filmInput = Console.ReadLine();
                         int filmNumber;
-                        if (!int.TryParse(filmInput, out filmNumber) || filmNumber <
-                            1 || filmNumber > 3)
+                        if (!int.TryParse(filmInput, out filmNumber) || filmNumber <1 || filmNumber > 3)
                             {
                                 Console.WriteLine("Ogiltigt filmnummer.");
                                 break;
                         }
                         break;
                     case 3:
-                        Console.WriteLine("Produkten är: " + Multiplicera(tal1, tal2));
+                        Console.WriteLine("Är du student? (ja/nej):");
+                        string studentInput = Console.ReadLine();
+                        isStudent = studentInput.Equals("ja", StringComparison.OrdinalIgnoreCase);
                         break;
-                    case 4:
-                        Console.WriteLine("Kvoten är: " + Dividera(tal1, tal2));
-                        break;
-                    default:
-                        Console.WriteLine("Fel bakom spakarna");
-                        break;
+
+                   
                 }
 
                 Console.WriteLine();
