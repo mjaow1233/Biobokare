@@ -21,7 +21,7 @@ namespace biobokare
 
         static void PrintReceipt(string movie, string time, int tickets, double total, bool isStudent) //namngivna argument
         {
-            Console.WriteLine("-------------------");
+            Console.WriteLine("");
             Console.WriteLine($"Film: {movie}");
             Console.WriteLine($"Tid: {time}");
             Console.WriteLine($"Antal biljetter: {tickets}");
@@ -53,7 +53,7 @@ namespace biobokare
                     Console.Write("SKRÄCKBION");
                     Console.ResetColor();
 
-                    Thread.Sleep(1200);
+                    Thread.Sleep(1250);
 
                     leftSpinner.Stop();
                     rightSpinner.Stop();
@@ -184,7 +184,7 @@ namespace biobokare
     }
     public class Spinner : IDisposable
     {
-        private const string Sequence = @"/-\";
+        private const string Sequence = @"/-";
         private int counter = 0;
         private readonly int left;
         private readonly int top;
@@ -192,7 +192,7 @@ namespace biobokare
         private bool active;
         private readonly Thread thread;
 
-        public Spinner(int left, int top, int delay = 100)
+        public Spinner(int left, int top, int delay = 150)
         {
             this.left = left;
             this.top = top;
