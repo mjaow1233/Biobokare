@@ -24,10 +24,10 @@ namespace biobokare
         {
             while (true)
             {
-                Console.WriteLine("Välkommen till SKRÄCKBION);
+                Console.WriteLine("Välkommen till SKRÄCKBION");
                 Console.WriteLine("---------------------------");
                 Console.WriteLine("Gör ett val");
-                Console.WriteLine("1) Lista filmer");
+                Console.WriteLine("1) Lista filmer & pris");
                 Console.WriteLine("2) Välj film & tid, ange biljetter");
                 Console.WriteLine("3) Lägg på/ta bort studentrabatt");
                 Console.WriteLine("4) Skriv ut kvitto");
@@ -37,18 +37,29 @@ namespace biobokare
                 if (!int.TryParse(input, out int choice)) continue;
                 if (choice == 5) { Console.WriteLine("Hejdå"); break; }
 
-                Console.WriteLine("Ange tal 1:");
-                int.TryParse(Console.ReadLine(), out int tal1);
-                Console.WriteLine("Ange tal 2:");
-                int.TryParse(Console.ReadLine(), out int tal2);
-
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine("Summan är: " + Addera(tal1, tal2));
+                        string[] movies = { "1) Introduktion till C# - 18:00", "2)Lär dig använda arrayer - 20:00", "3) Metodöverlagring - 22:00" };
+                        Console.WriteLine("Tillgängliga filmer:");
+                        foreach (string movie in movies)
+                        {
+                            Console.WriteLine("-------------------");
+                            Console.WriteLine("Priset för en biljett är: 100 kronor");
+                            Console.WriteLine("här är filmerna som går idag:");
+                            Console.WriteLine(movie);
+                        }
                         break;
                     case 2:
-                        Console.WriteLine("Differensen är: " + Subtrahera(tal1, tal2));
+                        Console.WriteLine("Ange filmnummer (1-3):");
+                        string filmInput = Console.ReadLine();
+                        int filmNumber;
+                        if (!int.TryParse(filmInput, out filmNumber) || filmNumber <
+                            1 || filmNumber > 3)
+                            {
+                                Console.WriteLine("Ogiltigt filmnummer.");
+                                break;
+                        }
                         break;
                     case 3:
                         Console.WriteLine("Produkten är: " + Multiplicera(tal1, tal2));
