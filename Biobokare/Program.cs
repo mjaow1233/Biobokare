@@ -224,7 +224,11 @@ namespace biobokare
 
         private void Draw(char c)
         {
-            Console.SetCursorPosition(left, top);
+         
+            if (top < 0 || top >= Console.BufferHeight) return;
+            if (left < 0 || left >= Console.BufferWidth) return;
+
+        Console.SetCursorPosition(left, top);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(c);
             Console.ResetColor();
